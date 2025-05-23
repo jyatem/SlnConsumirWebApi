@@ -1,24 +1,28 @@
-﻿namespace ConsumirWebApi
+﻿using ConsumirWebApi.Services;
+using System.Threading.Tasks;
+
+namespace ConsumirWebApi
 {
     public partial class MainPage : ContentPage
     {
+        private readonly IServicioWebApi _servicioWebApi;
+
         int count = 0;
 
-        public MainPage()
+        public MainPage(IServicioWebApi servicioWebApi)
         {
             InitializeComponent();
+            _servicioWebApi = servicioWebApi;
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        private async void OnCounterClicked(object sender, EventArgs e)
         {
-            count++;
+            loading.IsVisible = true;
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
+            var data = await _servicioWebApi.Obtener();
+            lstViewPersonajes.ItemsSource = data;
 
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            loading.IsVisible = false;
         }
     }
 

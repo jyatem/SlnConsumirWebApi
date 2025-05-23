@@ -1,5 +1,4 @@
-﻿using Android.Text.Style;
-using ConsumirWebApi.Services;
+﻿using ConsumirWebApi.Services;
 using Microsoft.Extensions.Logging;
 
 namespace ConsumirWebApi
